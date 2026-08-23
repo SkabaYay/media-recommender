@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useSearch } from "../context/SearchContext.jsx";
 import { useEffect } from "react";
-import "../css/Home.css";
+import "../css/Recommendations.css";
 import Search from "../components/Search";
 
-function Home() {
+function Recommendations() {
   const {
     openSearch,
     setOpenSearch,
@@ -12,13 +12,12 @@ function Home() {
     searchQuery,
     setSearchQuery,
     handleSearch,
-    handleMediaClick,
     page,
     setPage,
   } = useSearch();
 
   useEffect(() => {
-    setPage("home");
+    setPage("recommendations");
   }, []);
 
   return (
@@ -38,9 +37,7 @@ function Home() {
       </header>
 
       <section>
-        <div className="home-container">
-          <p>{media} Recommender</p>
-
+        <div className="recommendations-container">
           <div className="search-container">
             <form onSubmit={handleSearch} className="search-bar-form">
               <input
@@ -58,20 +55,10 @@ function Home() {
 
             {openSearch && <Search page={page} />}
           </div>
-
-          <div className="media-buttons">
-            <button className="album-button" onClick={handleMediaClick}>
-              Album
-            </button>
-
-            <button className="anime-button" onClick={handleMediaClick}>
-              Anime
-            </button>
-          </div>
         </div>
       </section>
     </>
   );
 }
 
-export default Home;
+export default Recommendations;
