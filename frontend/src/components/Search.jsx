@@ -1,7 +1,7 @@
 import "../css/Search.css";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../context/SearchContext.jsx";
-import { getAlbumMetadata, getReleaseGroupMetadata } from "../services/api.js";
+import { getAlbumMetadata, getRecommendations } from "../services/api.js";
 import Loading from "../assets/Loading.svg";
 import Missing from "../assets/Missing.svg";
 
@@ -16,10 +16,10 @@ function Search({ page }) {
     navigate("/recommendations");
 
     const release = await getAlbumMetadata(e.currentTarget.id);
-    const releaseGroupId = release["release-group"].id;
-    const album = await getReleaseGroupMetadata(releaseGroupId);
-    e.preventDefault();
-    console.log(album);
+    const releaseTitle = release["title"];
+
+    const recommendations = await getRecommendations(releaseTitle);
+    console.log(recommendations);
   }
 
   return (

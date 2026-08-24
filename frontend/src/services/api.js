@@ -32,6 +32,12 @@ export function getReleaseGroupMetadata(releaseGroupId) {
   });
 }
 
+export function getRecommendations(title) {
+  return post("http://localhost:5000/get-recommendations", {
+    title,
+  });
+}
+
 export async function getAlbumCover(releaseId) {
   const response = await fetch(
     `https://coverartarchive.org/release/${releaseId}`,
