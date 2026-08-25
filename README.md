@@ -2,4 +2,5 @@
 <h1>About</h1>
 <br/>
 A website that recommends similar media to the one the user inputs
+
 Uses Content Based Filtering via Python
