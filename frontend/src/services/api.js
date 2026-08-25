@@ -57,3 +57,23 @@ export async function getAlbumCover(releaseId) {
 
   return frontCover?.thumbnails?.["500"] ?? null;
 }
+
+export async function getAlbumCoverWithReleaseGroup(releaseGroupId) {
+  const response = await fetch(
+    `https://coverartarchive.org/release-group/${releaseGroupId}`,
+  );
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const data = await response.json();
+
+  const frontCover = data.images?.find((image) => image.front);
+
+  return frontCover?.thumbnails?.["500"] ?? frontCover?.image ?? null;
+}

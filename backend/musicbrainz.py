@@ -106,7 +106,7 @@ def get_release_group_metadata(release_group_id):
     url = f"{BASE_URL}/release-group/{release_group_id}"
 
     params = {
-        "inc": "tags genres artists",
+        "inc": "artists genres tags releases",
         "fmt": "json"
     }
 

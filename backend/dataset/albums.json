@@ -1,6 +1,8 @@
 [
     {
         "title": "OK Computer",
+        "id": "b1392450-e666-3926-a536-22c65f834433",
+        "release_id": "1834eae1-741b-3c03-9ca5-0df3decb43ea",
         "genres": [
             "alternative rock",
             "art rock",
@@ -68,6 +70,8 @@
     },
     {
         "title": "Kid A",
+        "id": "e75c0549-ad55-39e3-8025-c72c5d4a3c5d",
+        "release_id": "677cf459-923a-49ca-b144-90083728d2dc",
         "genres": [
             "alternative rock",
             "ambient",
@@ -150,6 +154,8 @@
     },
     {
         "title": "In Rainbows",
+        "id": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "release_id": "d4e08a8b-375d-474d-b960-9aaad7c04d30",
         "genres": [
             "alternative pop",
             "alternative rock",
@@ -218,6 +224,8 @@
     },
     {
         "title": "The Bends",
+        "id": "8ea92211-a70b-3993-9301-bb80e0d1a24a",
+        "release_id": "c9bd3da3-ee62-4c3e-a48e-a1b20ae7d0ed",
         "genres": [
             "alternative rock",
             "indie rock",
@@ -231,6 +239,8 @@
     },
     {
         "title": "Is This It",
+        "id": "efea26d1-a016-30f6-b8e2-bc8c02336b0a",
+        "release_id": "9c340a85-40be-4781-95c3-37f698d114bb",
         "genres": [
             "garage rock",
             "garage rock revival",
@@ -250,6 +260,8 @@
     },
     {
         "title": "Turn On the Bright Lights",
+        "id": "e7227840-5ef2-3813-af26-15dab34e1a51",
+        "release_id": "b08906fd-9e76-3ba0-bf07-23e0a59bbd30",
         "genres": [
             "alternative rock",
             "indie rock",
@@ -268,6 +280,8 @@
     },
     {
         "title": "Whatever People Say I Am, That's What I'm Not",
+        "id": "6c9c4985-3628-3070-b956-b538f30c9bea",
+        "release_id": "c4acd09c-97c1-3b75-9cdb-6b8d7e90c857",
         "genres": [
             "alternative pop",
             "alternative rock",
@@ -305,11 +319,15 @@
     },
     {
         "title": "AM",
+        "id": "c5ac3225-c748-4aa5-9a52-8a2ab0ddb9f3",
+        "release_id": "a25e8079-909b-4c13-b472-47c58aad1c9f",
         "genres": [],
         "tags": []
     },
     {
         "title": "The Dark Side of the Moon",
+        "id": "28a28bc6-ad0d-4a23-aab1-1e3f39cf60db",
+        "release_id": "93c671d8-7765-4709-bbf0-fa899f5293a5",
         "genres": [
             "art rock"
         ],
@@ -319,6 +337,8 @@
     },
     {
         "title": "Abbey Road",
+        "id": "c0b2899c-41ab-4907-abf0-ff1962477ff2",
+        "release_id": "70516629-7715-41bf-97e1-b7bf11254cb8",
         "genres": [
             "contemporary jazz",
             "jazz"
@@ -330,11 +350,15 @@
     },
     {
         "title": "Revolver",
+        "id": "90bc877e-a552-4f79-af85-02f91613a54b",
+        "release_id": "7ee5ffaf-4b56-4445-af77-b017ead06be2",
         "genres": [],
         "tags": []
     },
     {
         "title": "Rumours",
+        "id": "5c8214f6-6ad5-4ce8-9358-d1867a26e435",
+        "release_id": "9c4d3553-e129-4934-864e-9cf3b2be77ed",
         "genres": [
             "disco",
             "electronic"
@@ -346,11 +370,15 @@
     },
     {
         "title": "1989",
+        "id": "e583d1f2-7d10-3ff4-a2fb-a532cc9382c9",
+        "release_id": "0b54175e-7949-4bd1-990b-64277eaecea7",
         "genres": [],
         "tags": []
     },
     {
         "title": "Future Nostalgia",
+        "id": "9fca5d3a-617c-495b-9356-87f503a4d1e5",
+        "release_id": "26470ee1-75ae-425e-a910-36f1063b9670",
         "genres": [
             "rock",
             "southern rock"
@@ -362,6 +390,8 @@
     },
     {
         "title": "Melodrama",
+        "id": "1d092e1d-2fbe-3072-af16-b396186f6aff",
+        "release_id": "bbc3ab68-7794-4596-8066-d31bfe504296",
         "genres": [
             "pop rock",
             "rock"
@@ -373,6 +403,8 @@
     },
     {
         "title": "After Hours",
+        "id": "81c04288-3f96-4eb2-b9cf-8cface4b0e72",
+        "release_id": "d59b320b-ab38-4868-bb6b-dca13217dba3",
         "genres": [
             "electronic",
             "synth-pop"
@@ -384,6 +416,8 @@
     },
     {
         "title": "SOUR",
+        "id": "ce7c670d-ee71-37e2-81c6-18d531b941d1",
+        "release_id": null,
         "genres": [
             "alternative rock"
         ],
@@ -393,6 +427,8 @@
     },
     {
         "title": "When We All Fall Asleep, Where Do We Go?",
+        "id": "72375978-a9a1-4254-b957-85565c716b7e",
+        "release_id": "c784f470-f998-4806-b9b7-36b54c2d0003",
         "genres": [
             "alternative pop",
             "alternative r&b",
@@ -417,6 +453,8 @@
     },
     {
         "title": "Discovery",
+        "id": "315758af-b1ac-449b-89ec-1c38c8a5a04a",
+        "release_id": "6a550155-c2ad-4e9a-a9ff-4bda2cfebdf3",
         "genres": [
             "j-pop"
         ],
@@ -426,6 +464,8 @@
     },
     {
         "title": "To Pimp a Butterfly",
+        "id": "d9103c72-3807-4378-9ce7-b6f3e8fdd547",
+        "release_id": "8a426098-714d-4897-b180-dfd8f0a70fc9",
         "genres": [
             "conscious hip hop",
             "g-funk",
@@ -505,6 +545,8 @@
     },
     {
         "title": "good kid, m.A.A.d city",
+        "id": "499c19c8-0dab-4824-884b-6191d145e95b",
+        "release_id": "d5bcadc9-d6b2-4119-bf50-af1b9dca834c",
         "genres": [
             "conscious hip hop",
             "gangsta rap",
@@ -562,6 +604,8 @@
     },
     {
         "title": "The Miseducation of Lauryn Hill",
+        "id": "8691d12c-abd8-385c-b1eb-d841190124f7",
+        "release_id": "66435a30-a247-4cdc-b70c-8fadb4bf2efa",
         "genres": [
             "alternative hip hop",
             "contemporary r&b",
@@ -595,6 +639,8 @@
     },
     {
         "title": "Illmatic",
+        "id": "28298e2c-4d70-3eed-a0f5-a3280c662b3d",
+        "release_id": "9651aac2-4296-381f-a595-f11e3242c997",
         "genres": [
             "boom bap",
             "conscious hip hop",
@@ -631,6 +677,8 @@
     },
     {
         "title": "My Beautiful Dark Twisted Fantasy",
+        "id": "5d6e21e1-deb5-428e-bb42-c2a567f3619b",
+        "release_id": "cd474271-bd7a-4d53-ba9e-e9d5bd7958cb",
         "genres": [
             "hip hop",
             "pop rap",
@@ -648,11 +696,15 @@
     },
     {
         "title": "DAMN.",
+        "id": "935ffed1-a0ca-43af-bb3b-549034c271ce",
+        "release_id": "eb1abb77-1d0e-4015-bd27-70cab12a1e68",
         "genres": [],
         "tags": []
     },
     {
         "title": "The Marshall Mathers LP",
+        "id": "b0fa91c8-0996-38f1-ab84-797f58d7c4eb",
+        "release_id": "a5232981-a53b-41e3-bc93-ec095d69e37e",
         "genres": [
             "hardcore hip hop",
             "hip hop",
@@ -687,6 +739,8 @@
     },
     {
         "title": "IGOR",
+        "id": "d392c0e5-739a-4de6-8812-6232d830f295",
+        "release_id": "4f1377f1-430d-4086-a9ec-9cd8226dd72b",
         "genres": [
             "grunge",
             "psychedelic",
@@ -700,6 +754,8 @@
     },
     {
         "title": "Selected Ambient Works 85-92",
+        "id": "6842c81d-ea77-3dfd-abf7-4323add3f4d4",
+        "release_id": "91b48d23-7a5e-47d8-8484-cd06d54224ce",
         "genres": [
             "acid techno",
             "ambient",
@@ -717,6 +773,8 @@
     },
     {
         "title": "Untrue",
+        "id": "fddedc4f-7a2e-3d7d-9ec5-1705c416f3f4",
+        "release_id": "e685c54d-196c-47bd-9a75-74dafe4c43b7",
         "genres": [
             "2-step",
             "ambient",
@@ -746,11 +804,15 @@
     },
     {
         "title": "Immunity",
+        "id": "a24d8316-6978-35df-a732-3bf1a32e0361",
+        "release_id": "cc2738d8-d17c-47b0-92ac-7aa6d763d68d",
         "genres": [],
         "tags": []
     },
     {
         "title": "Syro",
+        "id": "11a7c281-a260-4f77-a1d5-1ff2d4c917eb",
+        "release_id": "c60d3a7d-7db7-4661-b18a-f3efa385ea81",
         "genres": [
             "acid breaks",
             "acid techno",
@@ -772,11 +834,15 @@
     },
     {
         "title": "Random Access Memories",
+        "id": "306b7820-9f80-471a-9647-8f769feea49d",
+        "release_id": "d5fd37fa-1bb1-4138-b6fa-f94c9ef714e4",
         "genres": [],
         "tags": []
     },
     {
         "title": "Blonde",
+        "id": "329fb554-2a81-3d8a-8e22-ec2c66810019",
+        "release_id": "1b051a10-7268-3773-a9ba-660765056ae3",
         "genres": [
             "blues rock",
             "country rock",
@@ -826,6 +892,8 @@
     },
     {
         "title": "Channel Orange",
+        "id": "f8f4167d-897c-4b25-a171-638374d1dfa4",
+        "release_id": "a93dbb10-9c28-4900-8372-062bd810b4b9",
         "genres": [
             "alternative r&b",
             "contemporary r&b",
@@ -842,6 +910,8 @@
     },
     {
         "title": "Ctrl",
+        "id": "8f892c1b-0709-4cf4-9711-493892a9eb9b",
+        "release_id": "2d5626a5-0fea-4604-97bb-4778c5c1e52f",
         "genres": [
             "contemporary r&b",
             "r&b"
@@ -853,6 +923,8 @@
     },
     {
         "title": "Songs in the Key of Life",
+        "id": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+        "release_id": "9b51a6b5-7f55-4dc7-8e10-a69410c7b306",
         "genres": [
             "contemporary r&b",
             "funk",
@@ -877,6 +949,8 @@
     },
     {
         "title": "What's Going On",
+        "id": "c1fa4d2c-ec62-37d5-b01d-6df7f8fd2c90",
+        "release_id": "ba91f9e2-2391-4bbd-9114-c9eff138fd98",
         "genres": [
             "motown",
             "orchestral",
@@ -939,6 +1013,8 @@
     },
     {
         "title": "Kind of Blue",
+        "id": "8e8a594f-2175-38c7-a871-abb68ec363e7",
+        "release_id": "bee5e0cd-1767-4a8e-9578-6455e87ba60b",
         "genres": [
             "cool jazz",
             "hard bop",
@@ -961,6 +1037,8 @@
     },
     {
         "title": "A Love Supreme",
+        "id": "77cf47ba-58cd-3f3d-a5f9-79bf89860421",
+        "release_id": "77d06b99-117a-3ba3-8230-69361ad7be91",
         "genres": [
             "avant-garde jazz",
             "free jazz",
@@ -984,21 +1062,29 @@
     },
     {
         "title": "Time Out",
+        "id": "f8d9913c-b986-4dd6-9eb2-a119d728c2d1",
+        "release_id": "1a879634-0f89-4f05-b6cb-f1c5bc627c40",
         "genres": [],
         "tags": []
     },
     {
         "title": "Head Hunters",
+        "id": "4f4e1ba2-b68f-4b56-86a0-5589f17c5e22",
+        "release_id": "5078bdec-76b9-4e53-b69a-dc727908b52b",
         "genres": [],
         "tags": []
     },
     {
         "title": "Master of Puppets",
+        "id": "0fe7a17b-9315-4788-b3e6-6bd0236d4b66",
+        "release_id": "65af2aef-f83c-4564-9c19-07b67c50813b",
         "genres": [],
         "tags": []
     },
     {
         "title": "Paranoid",
+        "id": "998a6225-50d5-4644-97a4-2e1d5a4a2263",
+        "release_id": "e0b994b6-037a-4abe-aaef-e206942c8dbd",
         "genres": [
             "electronica"
         ],
@@ -1008,11 +1094,15 @@
     },
     {
         "title": "Ride the Lightning",
+        "id": "e1f96641-c638-395b-9642-505998879aa0",
+        "release_id": null,
         "genres": [],
         "tags": []
     },
     {
         "title": "Blue",
+        "id": "0df12b31-4f99-4404-b826-535c8b8723ca",
+        "release_id": "f4514fd3-6865-4cd4-bee4-173eb4d5432b",
         "genres": [
             "americana"
         ],
@@ -1022,6 +1112,8 @@
     },
     {
         "title": "Carrie & Lowell",
+        "id": "21666540-83c8-4c54-9be1-0363a0848f33",
+        "release_id": "395152c9-1ba2-4c44-80ab-5d1488818344",
         "genres": [
             "folk",
             "indie folk",
@@ -1040,6 +1132,8 @@
     },
     {
         "title": "For Emma, Forever Ago",
+        "id": "187935b5-a0a4-3e6f-9684-48b67a5190a1",
+        "release_id": "f2d4a53b-0612-48e2-a09c-02489ae27a51",
         "genres": [
             "baroque pop",
             "contemporary folk",
@@ -1071,6 +1165,8 @@
     },
     {
         "title": "The Four Seasons",
+        "id": "d417e562-2f8e-4fa9-b3d9-f47f9c6bd7ac",
+        "release_id": "9b636a96-bcf0-4448-af59-3042dc8d263e",
         "genres": [
             "baroque",
             "classical"

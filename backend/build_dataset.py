@@ -24,8 +24,18 @@ for album in albums:
     for tag in metadata.get("tags", []):
         tags.append(tag["name"])
 
+    releases = metadata.get("releases", [])
+    cover_release_id = None
+
+    for release in releases:
+        if release.get("status") == "Official":
+            cover_release_id = release["id"]
+            break
+
     album_ids.append({
         "title": title,
+        "id": release_id,
+        "release_id": cover_release_id,
         "genres": genres,
         "tags": tags
     })

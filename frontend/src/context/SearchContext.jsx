@@ -1,5 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import { getAlbumCover, searchAlbums } from "../services/api";
+import {
+  getAlbumCover,
+  searchAlbums,
+  getAlbumMetadata,
+  getRecommendations,
+} from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const SearchContext = createContext();
 
@@ -11,6 +17,10 @@ export function SearchProvider({ children }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState();
+  const [recommendations, setRecommendations] = useState([]);
+  const [chosenMedia, setChosenMedia] = useState();
+
+  const navigate = useNavigate();
 
   function handleMediaClick(e) {
     setMedia(e.currentTarget.textContent);
@@ -54,6 +64,23 @@ export function SearchProvider({ children }) {
     }
   }
 
+  async function handleMediaClickOnSearch(e) {
+    const currentAlbumId = e.currentTarget.id;
+    setOpenSearch(false);
+    setSearchQuery("");
+
+    navigate("/recommendations");
+
+    const release = await getAlbumMetadata(currentAlbumId);
+    setChosenMedia(release);
+
+    const releaseTitle = release["title"];
+    const newRecommmendations = await getRecommendations(releaseTitle);
+    setRecommendations(newRecommmendations);
+
+    return recommendations;
+  }
+
   return (
     <SearchContext.Provider
       value={{
@@ -71,6 +98,9 @@ export function SearchProvider({ children }) {
         handleSearch,
         page,
         setPage,
+        handleMediaClickOnSearch,
+        recommendations,
+        chosenMedia,
       }}
     >
       {children}

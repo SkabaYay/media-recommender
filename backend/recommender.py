@@ -22,7 +22,6 @@ def recommend(selectedAlbum, albums):
         texts.append(text)
 
     vectorizer = TfidfVectorizer()
-
     vectors = vectorizer.fit_transform(texts)
 
     #calculate similarity using cosine similarity
@@ -59,6 +58,6 @@ def recommend(selectedAlbum, albums):
 
     for i in top_indices:
         album = albums[i]
-        recommendation.append(album["title"])
+        recommendation.append(album)
 
     return recommendation

@@ -1,26 +1,10 @@
 import "../css/Search.css";
-import { useNavigate } from "react-router-dom";
 import { useSearch } from "../context/SearchContext.jsx";
-import { getAlbumMetadata, getRecommendations } from "../services/api.js";
 import Loading from "../assets/Loading.svg";
 import Missing from "../assets/Missing.svg";
 
 function Search({ page }) {
-  const { setOpenSearch, setSearchQuery, results, loading } = useSearch();
-  const navigate = useNavigate();
-
-  async function handleMediaClick(e) {
-    setOpenSearch(false);
-    setSearchQuery("");
-
-    navigate("/recommendations");
-
-    const release = await getAlbumMetadata(e.currentTarget.id);
-    const releaseTitle = release["title"];
-
-    const recommendations = await getRecommendations(releaseTitle);
-    console.log(recommendations);
-  }
+  const { handleMediaClickOnSearch, results, loading } = useSearch();
 
   return (
     <div className={`search-box-${page}`}>
@@ -36,7 +20,7 @@ function Search({ page }) {
                 key={album.id}
                 className="album"
                 id={album.id}
-                onClick={handleMediaClick}
+                onClick={handleMediaClickOnSearch}
               >
                 <img
                   src={
