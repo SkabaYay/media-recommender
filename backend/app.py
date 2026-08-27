@@ -25,7 +25,8 @@ def getDB():
 app = Flask(__name__)
 CORS(app, origins=[
     "http://localhost:5173",
-    "https://media-recommender-sigma.vercel.app"
+    "https://media-recommender-sigma.vercel.app",
+    "https://media-recommender-htt0vn7j4-something-something.vercel.app"
 ])
 
 @app.route("/search-albums", methods=["POST"])
