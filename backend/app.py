@@ -180,64 +180,80 @@ def getRecommendations():
         tags = [row[0] for row in cursor.fetchall()]
         
         cursor.execute("""
-            SELECT
-                rg.musicbrainz_id,
-                rg.title,
-                a.name,
-                genre_data.genres,
-                tag_data.tags,
-                genre_data.shared_genres,
-                tag_data.shared_tags
+            WITH candidate_scores AS (
 
-            FROM release_groups rg
-
-            INNER JOIN artists a
-                ON rg.artist_id = a.id
-
-            INNER JOIN (
                 SELECT
-                    rgg.release_group_id,
-                    ARRAY_AGG(DISTINCT g.name) AS genres,
+                    rg.id AS release_group_id,
                     COUNT(DISTINCT CASE
                         WHEN g.name = ANY(%s) THEN g.id
-                    END) AS shared_genres
-
-                FROM release_group_genres rgg
-
-                INNER JOIN genres g
-                    ON g.id = rgg.genre_id
-
-                GROUP BY rgg.release_group_id
-            ) genre_data
-                ON genre_data.release_group_id = rg.id
-
-            LEFT JOIN (
-                SELECT
-                    rgt.release_group_id,
-                    ARRAY_AGG(DISTINCT t.name) AS tags,
+                    END) AS shared_genres,
                     COUNT(DISTINCT CASE
                         WHEN t.name = ANY(%s) THEN t.id
                     END) AS shared_tags
 
-                FROM release_group_tags rgt
+                FROM release_groups rg
 
-                INNER JOIN tags t
+                LEFT JOIN release_group_genres rgg
+                    ON rgg.release_group_id = rg.id
+
+                LEFT JOIN genres g
+                    ON g.id = rgg.genre_id
+
+                LEFT JOIN release_group_tags rgt
+                    ON rgt.release_group_id = rg.id
+
+                LEFT JOIN tags t
                     ON t.id = rgt.tag_id
 
-                GROUP BY rgt.release_group_id
-            ) tag_data
-                ON tag_data.release_group_id = rg.id
+                WHERE g.name = ANY(%s)
+                OR t.name = ANY(%s)
 
-            WHERE genre_data.shared_genres > 0
-            OR tag_data.shared_tags > 0
+                GROUP BY rg.id
+
+                ORDER BY
+                    shared_genres DESC,
+                    shared_tags DESC
+
+                LIMIT 1000
+            )
+
+            SELECT
+                rg.musicbrainz_id,
+                rg.title,
+                a.name,
+
+                (
+                    SELECT ARRAY_AGG(DISTINCT g2.name)
+                    FROM release_group_genres rgg2
+                    INNER JOIN genres g2
+                        ON g2.id = rgg2.genre_id
+                    WHERE rgg2.release_group_id = rg.id
+                ) AS genres,
+
+                (
+                    SELECT ARRAY_AGG(DISTINCT t2.name)
+                    FROM release_group_tags rgt2
+                    INNER JOIN tags t2
+                        ON t2.id = rgt2.tag_id
+                    WHERE rgt2.release_group_id = rg.id
+                ) AS tags,
+
+                candidate_scores.shared_genres,
+                candidate_scores.shared_tags
+
+            FROM candidate_scores
+
+            INNER JOIN release_groups rg
+                ON rg.id = candidate_scores.release_group_id
+
+            INNER JOIN artists a
+                ON a.id = rg.artist_id
 
             ORDER BY
-                genre_data.shared_genres DESC,
-                tag_data.shared_tags DESC
+                candidate_scores.shared_genres DESC,
+                candidate_scores.shared_tags DESC
 
-            LIMIT 1000
-
-        """, (genres, tags))
+        """, (genres, tags, genres, tags))
         
         results = cursor.fetchall()
         albums = [
@@ -248,7 +264,7 @@ def getRecommendations():
                 "genres": album[3] or [],
                 "tags": album[4] or [],
                 "shared_genres": album[5],
-                "shared_tags": album[6]
+                "shared_tags": album[6] or 0
             }
             for album in results
         ]
