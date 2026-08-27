@@ -148,7 +148,6 @@ def getRecommendations():
     try:
         data = request.json
         dataReleaseGroupId = data["id"]
-        dataTitle = data["title"]
         
         cursor.execute(
             """
@@ -181,33 +180,64 @@ def getRecommendations():
         tags = [row[0] for row in cursor.fetchall()]
         
         cursor.execute("""
-        SELECT
-            rg.musicbrainz_id,
-            rg.title,
-            a.name,
-            ARRAY_AGG(DISTINCT g.name) AS genres,
-            ARRAY_AGG(DISTINCT t.name) AS tags
-        FROM release_groups rg
-        
-        INNER JOIN artists a
-        ON rg.artist_id = a.id
-        
-        INNER JOIN release_group_genres rgg
-            ON rgg.release_group_id = rg.id
-        
-        INNER JOIN genres g
-            ON g.id = rgg.genre_id
-        
-        LEFT JOIN release_group_tags rgt
-            ON rgt.release_group_id = rg.id
-        
-        LEFT JOIN tags t
-            ON t.id = rgt.tag_id
-        
-        WHERE g.name = ANY(%s) OR t.name = ANY(%s)
-        
-        GROUP BY rg.id, rg.musicbrainz_id, rg.title, a.name
-        """, (genres, tags,))
+            SELECT
+                rg.musicbrainz_id,
+                rg.title,
+                a.name,
+                genre_data.genres,
+                tag_data.tags,
+                genre_data.shared_genres,
+                tag_data.shared_tags
+
+            FROM release_groups rg
+
+            INNER JOIN artists a
+                ON rg.artist_id = a.id
+
+            INNER JOIN (
+                SELECT
+                    rgg.release_group_id,
+                    ARRAY_AGG(DISTINCT g.name) AS genres,
+                    COUNT(DISTINCT CASE
+                        WHEN g.name = ANY(%s) THEN g.id
+                    END) AS shared_genres
+
+                FROM release_group_genres rgg
+
+                INNER JOIN genres g
+                    ON g.id = rgg.genre_id
+
+                GROUP BY rgg.release_group_id
+            ) genre_data
+                ON genre_data.release_group_id = rg.id
+
+            LEFT JOIN (
+                SELECT
+                    rgt.release_group_id,
+                    ARRAY_AGG(DISTINCT t.name) AS tags,
+                    COUNT(DISTINCT CASE
+                        WHEN t.name = ANY(%s) THEN t.id
+                    END) AS shared_tags
+
+                FROM release_group_tags rgt
+
+                INNER JOIN tags t
+                    ON t.id = rgt.tag_id
+
+                GROUP BY rgt.release_group_id
+            ) tag_data
+                ON tag_data.release_group_id = rg.id
+
+            WHERE genre_data.shared_genres > 0
+            OR tag_data.shared_tags > 0
+
+            ORDER BY
+                genre_data.shared_genres DESC,
+                tag_data.shared_tags DESC
+
+            LIMIT 1000
+
+        """, (genres, tags))
         
         results = cursor.fetchall()
         albums = [
@@ -215,13 +245,19 @@ def getRecommendations():
                 "id": album[0],
                 "title": album[1],
                 "artist": album[2],
-                "genres": album[3],
-                "tags": album[4]
+                "genres": album[3] or [],
+                "tags": album[4] or [],
+                "shared_genres": album[5],
+                "shared_tags": album[6]
             }
             for album in results
         ]
         
-        recommendations = recommender.recommend(dataTitle, albums)
+        recommendations = recommender.recommend(
+            genres,
+            tags,
+            albums
+        )
         return jsonify(recommendations)
     except:
         conn.rollback()
