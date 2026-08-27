@@ -20,45 +20,20 @@ export function searchAlbums(query) {
   });
 }
 
-export function getAlbumMetadata(releaseId) {
-  return post("http://localhost:5000/get-album-metadata", {
-    releaseId,
-  });
-}
-
 export function getReleaseGroupMetadata(releaseGroupId) {
   return post("http://localhost:5000/get-release-group-metadata", {
     releaseGroupId,
   });
 }
 
-export function getRecommendations(title) {
+export function getRecommendations(title, id) {
   return post("http://localhost:5000/get-recommendations", {
     title,
+    id,
   });
 }
 
-export async function getAlbumCover(releaseId) {
-  const response = await fetch(
-    `https://coverartarchive.org/release/${releaseId}`,
-  );
-
-  if (response.status === 404) {
-    return undefined;
-  }
-
-  if (!response.ok) {
-    return null;
-  }
-
-  const data = await response.json();
-
-  const frontCover = data.images.find((image) => image.front);
-
-  return frontCover?.thumbnails?.["500"] ?? null;
-}
-
-export async function getAlbumCoverWithReleaseGroup(releaseGroupId) {
+export async function getAlbumCover(releaseGroupId) {
   const response = await fetch(
     `https://coverartarchive.org/release-group/${releaseGroupId}`,
   );

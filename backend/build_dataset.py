@@ -1,50 +1,65 @@
-from time import sleep
-import musicbrainz
-import json
+# import os
+# import json
+# import psycopg2
+# from dotenv import load_dotenv
 
-with open("backend/dataset/album_ids.json", "r") as file:
-    albums = json.load(file)
+# load_dotenv()
 
-album_ids = []
+# path = "/mnt/c/Users/Skaba/Downloads/release-group/mbdump/release-group"
 
-for album in albums:
-    title = album["title"]
-    release_id = album["release_group_id"]
+# conn = psycopg2.connect(
+#     dbname=os.getenv("DB_NAME"),
+#     user=os.getenv("DB_USER"),
+#     password=os.getenv("DB_PASSWORD"),
+#     host=os.getenv("DB_HOST"),
+#     port=os.getenv("DB_PORT")
+# )
 
-    print(f"Getting metadata for: {title}")
+# cursor = conn.cursor()
 
-    metadata = musicbrainz.get_release_group_metadata(release_id)
+# with open(path, "r", encoding="utf-8") as file:
+#     line = file.readline()
+#     album = json.loads(line)
 
-    genres = []
-    tags = []
+#     artist = album["artist-credit"][0]["artist"]
 
-    for genre in metadata.get("genres", []):
-        genres.append(genre["name"])
+#     cursor.execute(
+#         """
+#         INSERT INTO artists(musicbrainz_id, name)
+#         VALUES(%s, %s)
+#         ON CONFLICT (musicbrainz_id) DO NOTHING
+#         """,
+#         (artist["id"], artist["name"])
+#     )
 
-    for tag in metadata.get("tags", []):
-        tags.append(tag["name"])
+#     cursor.execute(
+#         """
+#         SELECT id
+#         FROM artists
+#         WHERE musicbrainz_id = %s
+#         """,
+#         (artist["id"])
+#     )
 
-    releases = metadata.get("releases", [])
-    cover_release_id = None
+#     artist_id = cursor.fetchone()[0]
 
-    for release in releases:
-        if release.get("status") == "Official":
-            cover_release_id = release["id"]
-            break
+#     cursor.execute(
+#         """INSERT INTO release_groups
+#         (musicbrainz_id, title, artist_id, release_date)
+#         VALUES(%s, %s, %s, %s)
+#         """,
 
-    album_ids.append({
-        "title": title,
-        "id": release_id,
-        "release_id": cover_release_id,
-        "genres": genres,
-        "tags": tags
-    })
+#         (
+#             album["id"],
+#             album["title"],
+#             artist_id, 
+#             album["first-release-date"]
+#         )
+#     )
 
-    print(f"Finished: {title}")
+# conn.commit()
 
-    sleep(10)
+# cursor.close()
+# conn.close()
 
-print(album_ids)
-
-with open("backend/dataset/albums.json", "w") as file:
-    json.dump(album_ids, file, indent=4)
+# print("Successfully imported:", album["title"])

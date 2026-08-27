@@ -2,10 +2,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
-#albums
-with open("backend/dataset/albums.json", "r") as file:
-    albums = json.load(file)
-
 def recommend(selectedAlbum, albums):
     #Tfidf it, to convert words into numbers
     texts = []
@@ -24,9 +20,6 @@ def recommend(selectedAlbum, albums):
     vectorizer = TfidfVectorizer()
     vectors = vectorizer.fit_transform(texts)
 
-    #calculate similarity using cosine similarity
-    similarity = cosine_similarity(vectors)
-
     #get the index of selected album
     selectedIndex = -1
 
@@ -38,8 +31,14 @@ def recommend(selectedAlbum, albums):
     if selectedIndex == -1:
         return []
 
+    selected_vector = vectors[selectedIndex]
+    candidate_vectors = vectors
+    
+    #calculate similarity using cosine similarity
+    similarity = cosine_similarity(selected_vector, candidate_vectors)
+    
     #get the similarity scores
-    scores = similarity[selectedIndex]
+    scores = similarity[0]
 
     similarIndices = scores.argsort()[::-1]
 
@@ -53,7 +52,7 @@ def recommend(selectedAlbum, albums):
     similarIndices = tempSimilarIndices
 
     #print out the top 3
-    top_indices = similarIndices[:5]
+    top_indices = similarIndices[:20]
     recommendation = []
 
     for i in top_indices:

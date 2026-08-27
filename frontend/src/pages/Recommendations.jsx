@@ -1,9 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  getAlbumCover,
-  getReleaseGroupMetadata,
-  getAlbumCoverWithReleaseGroup,
-} from "../services/api.js";
+import { getAlbumCover, getReleaseGroupMetadata } from "../services/api.js";
 import { useSearch } from "../context/SearchContext.jsx";
 import { useEffect, useState } from "react";
 import "../css/Recommendations.css";
@@ -40,23 +36,22 @@ function Recommendations() {
     setLoadingRec(true);
 
     async function getRecommendationInfo() {
-      const results = await Promise.all(
+      console.log(recommendations);
+      const promiseResults = await Promise.all(
         recommendations.map(async (album) => {
           const searchResult = await getReleaseGroupMetadata(album["id"]);
-          const searchResultCover = await getAlbumCoverWithReleaseGroup(
-            album["id"],
-          );
+          const searchResultCover = await getAlbumCover(album["id"]);
 
           return {
             title: searchResult["title"],
             id: searchResult["id"],
-            artist: searchResult["artist-credit"][0]["name"],
+            artist: searchResult["artist"]["name"],
             cover: searchResultCover,
           };
         }),
       );
 
-      setResults(results);
+      setResults(promiseResults);
       setLoadingRec(false);
       console.log(results);
     }
@@ -121,7 +116,7 @@ function Recommendations() {
                 <img src={cover} alt={chosenMedia["title"]} />
                 <div className="chosen-album-info">
                   <p>{chosenMedia["title"]}</p>
-                  <p>{chosenMedia["artist-credit"][0]["name"]}</p>
+                  <p>{chosenMedia["artist"]["name"]}</p>
                 </div>
               </>
             )}

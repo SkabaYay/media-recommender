@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import {
   getAlbumCover,
   searchAlbums,
-  getAlbumMetadata,
+  getReleaseGroupMetadata,
   getRecommendations,
 } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -68,14 +68,19 @@ export function SearchProvider({ children }) {
     const currentAlbumId = e.currentTarget.id;
     setOpenSearch(false);
     setSearchQuery("");
+    setRecommendations([]);
 
     navigate("/recommendations");
 
-    const release = await getAlbumMetadata(currentAlbumId);
+    const release = await getReleaseGroupMetadata(currentAlbumId);
     setChosenMedia(release);
 
     const releaseTitle = release["title"];
-    const newRecommmendations = await getRecommendations(releaseTitle);
+    const releaseId = release["id"];
+    const newRecommmendations = await getRecommendations(
+      releaseTitle,
+      releaseId,
+    );
     setRecommendations(newRecommmendations);
 
     return recommendations;
