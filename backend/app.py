@@ -23,7 +23,14 @@ def getDB():
     return db_pool.getconn()
 
 app = Flask(__name__)
-CORS(app)
+CORS(
+    app,
+    resources={
+        r"/*": {
+            "origins": "*"
+        }
+    }
+)
 
 @app.route("/search-albums", methods=["POST"])
 def search():
