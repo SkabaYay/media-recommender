@@ -11,7 +11,6 @@ const SearchContext = createContext();
 
 export function SearchProvider({ children }) {
   const [openSearch, setOpenSearch] = useState(false);
-  const [media, setMedia] = useState("Album");
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
@@ -19,12 +18,10 @@ export function SearchProvider({ children }) {
   const [page, setPage] = useState();
   const [recommendations, setRecommendations] = useState([]);
   const [chosenMedia, setChosenMedia] = useState();
+  const [loadingRec, setLoadingRec] = useState(true);
+  const [loadingChosenMed, setLoadingChosenMed] = useState(true);
 
   const navigate = useNavigate();
-
-  function handleMediaClick(e) {
-    setMedia(e.currentTarget.textContent);
-  }
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -37,8 +34,8 @@ export function SearchProvider({ children }) {
 
     try {
       const searchResults = await searchAlbums(searchQuery);
-
       setResults(searchResults);
+
       setError(null);
 
       searchResults.forEach(async (album) => {
@@ -66,9 +63,13 @@ export function SearchProvider({ children }) {
 
   async function handleMediaClickOnSearch(e) {
     const currentAlbumId = e.currentTarget.id;
+
     setOpenSearch(false);
     setSearchQuery("");
     setRecommendations([]);
+
+    setLoadingRec(true);
+    setLoadingChosenMed(true);
 
     navigate("/recommendations");
 
@@ -91,21 +92,22 @@ export function SearchProvider({ children }) {
       value={{
         openSearch,
         setOpenSearch,
-        media,
-        setMedia,
         searchQuery,
         setSearchQuery,
         results,
         setResults,
         error,
         loading,
-        handleMediaClick,
         handleSearch,
         page,
         setPage,
         handleMediaClickOnSearch,
         recommendations,
         chosenMedia,
+        loadingRec,
+        setLoadingRec,
+        loadingChosenMed,
+        setLoadingChosenMed,
       }}
     >
       {children}

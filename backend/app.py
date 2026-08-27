@@ -22,7 +22,9 @@ def getDB():
     return db_pool.getconn()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5173"
+])
 
 @app.route("/search-albums", methods=["POST"])
 def search():
@@ -50,8 +52,7 @@ def search():
             {
                 "id": album[0],
                 "title": album[1],
-                "artist": album[2],
-                "cover": None
+                "artist": album[2]
             }
             for album in albums
         ])
@@ -197,10 +198,10 @@ def getRecommendations():
         LEFT JOIN tags t
             ON t.id = rgt.tag_id
         
-        WHERE g.name = ANY(%s)
+        WHERE g.name = ANY(%s) OR t.name = ANY(%s)
         
         GROUP BY rg.id, rg.musicbrainz_id, rg.title, a.name
-        """, (genres,))
+        """, (genres, tags,))
         
         results = cursor.fetchall()
         albums = [

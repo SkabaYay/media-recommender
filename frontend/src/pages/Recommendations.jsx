@@ -19,10 +19,12 @@ function Recommendations() {
     setPage,
     recommendations,
     chosenMedia,
+    loadingRec,
+    setLoadingRec,
+    loadingChosenMed,
+    setLoadingChosenMed,
   } = useSearch();
-  const [loadingRec, setLoadingRec] = useState(true);
-  const [loadingChosenMed, setLoadingChosenMed] = useState(true);
-  const [cover, setCover] = useState();
+  const [cover, setCover] = useState(undefined);
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -33,10 +35,8 @@ function Recommendations() {
     if (recommendations.length === 0) return;
 
     setResults([]);
-    setLoadingRec(true);
 
     async function getRecommendationInfo() {
-      console.log(recommendations);
       const promiseResults = await Promise.all(
         recommendations.map(async (album) => {
           const searchResult = await getReleaseGroupMetadata(album["id"]);
@@ -53,7 +53,6 @@ function Recommendations() {
 
       setResults(promiseResults);
       setLoadingRec(false);
-      console.log(results);
     }
 
     getRecommendationInfo();
@@ -62,7 +61,7 @@ function Recommendations() {
   useEffect(() => {
     if (chosenMedia === null || typeof chosenMedia !== "object") return;
 
-    setCover();
+    setCover(undefined);
     setLoadingChosenMed(false);
 
     async function getTheAlbumCover() {
@@ -91,7 +90,11 @@ function Recommendations() {
       <section>
         <div className="recommendations-container">
           <div className="search-container">
-            <form onSubmit={handleSearch} className="search-bar-form">
+            <form
+              onChange={handleSearch}
+              onSubmit={(e) => e.preventDefault()}
+              className="search-bar-form"
+            >
               <input
                 type="text"
                 placeholder={`Search ${media}...`}

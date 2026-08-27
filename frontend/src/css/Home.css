@@ -40,7 +40,8 @@ header nav a:nth-last-child(1) {
 .home-container .search-container form input {
   position: relative;
   z-index: 100;
-  width: 40%;
+  width: 80%;
+  max-width: 700px;
   height: 62px;
   display: flex;
   justify-self: center;

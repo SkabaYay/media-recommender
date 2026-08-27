@@ -20,6 +20,7 @@ header nav a:nth-last-child(1) {
 
 .recommendations-container {
   width: 100%;
+  max-width: 2000px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,7 +37,8 @@ header nav a:nth-last-child(1) {
 .recommendations-container .search-container form input {
   position: relative;
   z-index: 100;
-  width: 40%;
+  width: 80%;
+  max-width: 700px;
   height: 62px;
   display: flex;
   justify-self: center;
@@ -79,6 +81,7 @@ header nav a:nth-last-child(1) {
 
 .recommendations-container .recommendations {
   width: 100%;
+  max-width: 1900px;
   display: flex;
   flex-direction: column;
   padding-left: 10rem;
@@ -121,4 +124,37 @@ header nav a:nth-last-child(1) {
   .container
   .recommended-album:hover {
   background-color: var(--ternary-color);
+}
+
+@media (max-width: 1028px) {
+  .recommendations-container .recommendations {
+    width: 110%;
+  }
+}
+
+@media (max-width: 825px) {
+  .recommendations-container .recommendations {
+    width: 120%;
+  }
+  .recommendations-container .recommendations .container .recommended-album {
+    width: 150px;
+  }
+}
+
+@media (max-width: 715px) {
+  .recommendations-container .recommendations {
+    width: 130%;
+  }
+  .recommendations-container .recommendations .container .recommended-album {
+    width: 125px;
+  }
+}
+
+@media (max-width: 489px) {
+  .recommendations-container .recommendations {
+    width: 146%;
+  }
+  .recommendations-container .recommendations .container .recommended-album {
+    width: 130px;
+  }
 }

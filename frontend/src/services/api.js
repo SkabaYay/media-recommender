@@ -15,19 +15,19 @@ async function post(url, body) {
 }
 
 export function searchAlbums(query) {
-  return post("http://localhost:5000/search-albums", {
+  return post(`${import.meta.env.VITE_API_URL}/search-albums`, {
     query,
   });
 }
 
 export function getReleaseGroupMetadata(releaseGroupId) {
-  return post("http://localhost:5000/get-release-group-metadata", {
+  return post(`${import.meta.env.VITE_API_URL}/get-release-group-metadata`, {
     releaseGroupId,
   });
 }
 
 export function getRecommendations(title, id) {
-  return post("http://localhost:5000/get-recommendations", {
+  return post(`${import.meta.env.VITE_API_URL}/get-recommendations`, {
     title,
     id,
   });

@@ -8,11 +8,9 @@ function Home() {
   const {
     openSearch,
     setOpenSearch,
-    media,
     searchQuery,
     setSearchQuery,
     handleSearch,
-    handleMediaClick,
     page,
     setPage,
   } = useSearch();
@@ -39,13 +37,17 @@ function Home() {
 
       <section>
         <div className="home-container">
-          <p>{media} Recommender</p>
+          <p>Album Recommender</p>
 
           <div className="search-container">
-            <form onSubmit={handleSearch} className="search-bar-form">
+            <form
+              onChange={handleSearch}
+              onSubmit={(e) => e.preventDefault()}
+              className="search-bar-form"
+            >
               <input
                 type="text"
-                placeholder={`Search ${media}...`}
+                placeholder={`Search album...`}
                 onChange={(e) => {
                   setOpenSearch(e.target.value.length > 0);
                   setSearchQuery(e.target.value);
@@ -60,13 +62,7 @@ function Home() {
           </div>
 
           <div className="media-buttons">
-            <button className="album-button" onClick={handleMediaClick}>
-              Album
-            </button>
-
-            <button className="anime-button" onClick={handleMediaClick}>
-              Anime
-            </button>
+            <button className="album-button">Album</button>
           </div>
         </div>
       </section>

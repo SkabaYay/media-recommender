@@ -1,6 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import json
 
 def recommend(selectedAlbum, albums):
     #Tfidf it, to convert words into numbers
@@ -52,7 +51,7 @@ def recommend(selectedAlbum, albums):
     similarIndices = tempSimilarIndices
 
     #print out the top 3
-    top_indices = similarIndices[:20]
+    top_indices = similarIndices[:18]
     recommendation = []
 
     for i in top_indices:

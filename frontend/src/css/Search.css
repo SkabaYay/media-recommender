@@ -1,7 +1,10 @@
 .search-box-home {
   z-index: 99;
-  width: 41%;
+  width: 90%;
+  max-width: 700px;
   height: 500px;
+  max-height: 70vh;
+  max-height: 70dvh;
   background-color: var(--secondary-color);
   border-radius: 15px;
   position: absolute;
@@ -13,6 +16,7 @@
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-sizing: border-box;
 }
 
 .search-box-recommendations {
@@ -62,4 +66,28 @@
 
 .album:hover {
   background-color: var(--ternary-color);
+}
+
+@media (max-width: 530px) {
+  .albums .album {
+    width: 150px;
+  }
+}
+
+@media (max-height: 900px) {
+  .search-box-home {
+    top: 73%;
+  }
+}
+
+@media (max-height: 800px) {
+  .search-box-home {
+    top: 75%;
+  }
+}
+
+@media (max-height: 750px) {
+  .search-box-home {
+    top: 78%;
+  }
 }
