@@ -180,41 +180,30 @@ def getRecommendations():
         tags = [row[0] for row in cursor.fetchall()]
         
         cursor.execute("""
-            WITH candidate_scores AS (
-
-                SELECT
-                    rg.id AS release_group_id,
-                    COUNT(DISTINCT CASE
-                        WHEN g.name = ANY(%s) THEN g.id
-                    END) AS shared_genres,
-                    COUNT(DISTINCT CASE
-                        WHEN t.name = ANY(%s) THEN t.id
-                    END) AS shared_tags
-
-                FROM release_groups rg
-
-                LEFT JOIN release_group_genres rgg
-                    ON rgg.release_group_id = rg.id
-
-                LEFT JOIN genres g
-                    ON g.id = rgg.genre_id
-
-                LEFT JOIN release_group_tags rgt
-                    ON rgt.release_group_id = rg.id
-
-                LEFT JOIN tags t
-                    ON t.id = rgt.tag_id
-
+            WITH genre_matches AS (
+                SELECT rgg.release_group_id, COUNT(*) AS shared_genres
+                FROM release_group_genres rgg
+                INNER JOIN genres g ON g.id = rgg.genre_id
                 WHERE g.name = ANY(%s)
-                OR t.name = ANY(%s)
-
-                GROUP BY rg.id
-
-                ORDER BY
-                    shared_genres DESC,
-                    shared_tags DESC
-
-                LIMIT 1000
+                GROUP BY rgg.release_group_id
+            ),
+            tag_matches AS (
+                SELECT rgt.release_group_id, COUNT(*) AS shared_tags
+                FROM release_group_tags rgt
+                INNER JOIN tags t ON t.id = rgt.tag_id
+                WHERE t.name = ANY(%s)
+                GROUP BY rgt.release_group_id
+            ),
+            candidate_scores AS (
+                SELECT
+                    COALESCE(gm.release_group_id, tm.release_group_id) AS release_group_id,
+                    COALESCE(gm.shared_genres, 0) AS shared_genres,
+                    COALESCE(tm.shared_tags, 0) AS shared_tags
+                FROM genre_matches gm
+                FULL OUTER JOIN tag_matches tm
+                    ON gm.release_group_id = tm.release_group_id
+                ORDER BY shared_genres DESC, shared_tags DESC
+                LIMIT 200
             )
 
             SELECT
@@ -253,7 +242,7 @@ def getRecommendations():
                 candidate_scores.shared_genres DESC,
                 candidate_scores.shared_tags DESC
 
-        """, (genres, tags, genres, tags))
+        """, (genres, tags))
         
         results = cursor.fetchall()
         albums = [
