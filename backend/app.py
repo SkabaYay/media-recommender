@@ -8,19 +8,15 @@ from psycopg2 import pool
 
 load_dotenv()
 
-db_pool = psycopg2.pool.ThreadedConnectionPool(
-    1,
-    10,
-    dbname=os.getenv("DB_NAME"),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD"),
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
-    sslmode="require"
-)
-
 def getDB():
-    return db_pool.getconn()
+    return psycopg2.connect(
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        host=os.getenv("DB_HOST"),
+        port=os.getenv("DB_PORT"),
+        sslmode="require"
+    )
 
 app = Flask(__name__)
 CORS(
@@ -67,7 +63,7 @@ def search():
         raise
     finally:
         cursor.close()
-        db_pool.putconn(conn)
+        conn.close()
 
 @app.route("/get-release-group-metadata", methods=["POST"])
 def getReleaseGroupMetadata():
@@ -138,7 +134,7 @@ def getReleaseGroupMetadata():
         raise
     finally:
         cursor.close()
-        db_pool.putconn(conn)
+        conn.close()
 
 @app.route("/get-recommendations", methods=["POST"])
 def getRecommendations():
@@ -269,7 +265,7 @@ def getRecommendations():
         raise
     finally:
         cursor.close()
-        db_pool.putconn(conn)
+        conn.close()
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
