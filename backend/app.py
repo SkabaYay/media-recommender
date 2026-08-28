@@ -15,17 +15,17 @@ def getDB():
         password=os.getenv("DB_PASSWORD"),
         host=os.getenv("DB_HOST"),
         port=os.getenv("DB_PORT"),
-        sslmode="require"
+        # sslmode="require"
     )
 
 app = Flask(__name__)
 CORS(
-    app,
-    resources={
-        r"/*": {
-            "origins": "*"
-        }
-    }
+    app
+    # resources={
+    #     r"/*": {
+    #         "origins": "*"
+    #     }
+    # }
 )
 
 @app.route("/search-albums", methods=["POST"])
